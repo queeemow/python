@@ -43,10 +43,10 @@ def ceasar(plaintext: str, shift: int):
 
     i = 0
     while i < len(plaintext):
-        if ord(plaintext[i].upper()) + shift <= 95:
-            cipher.append(chr(ord(plaintext[i]) + shift))
+        if ord(plaintext[i].upper()) + shift <= 90:
+            cipher.append(chr(ord(plaintext[i]) + shift).upper())
         else:
-             cipher.append(chr(ord(plaintext[i].upper()) - 26 + shift))
+             cipher.append(chr(ord(plaintext[i]) - 26 + shift).upper())
         i = i + 1
     return str(cipher)
 
@@ -59,10 +59,10 @@ def vigenere(plaintext: str, key: str):
     while i < len(plaintext):
         if i % len(key) == 0:
             j = 0
-            cipher.append(chr(ord(plaintext[i].upper()) + ord(key[j].upper()) - ord("A")))
+            cipher.append(chr(ord(plaintext[i]) + ord(key[j]) - ord("A")).upper())
         else:
-            cipher.append(chr(ord(plaintext[i].upper()) + ord(key[j].upper()) - ord("A")))
-        if ord(cipher[i]) > 95: #проверка на вхождение в алфавит
+            cipher.append(chr(ord(plaintext[i]) + ord(key[j]) - ord("A")).upper())
+        if ord(cipher[i]) > 90: #проверка на вхождение в алфавит
             cipher[i] = chr(ord(cipher[i]) - 26)
         i = i + 1
         j = j + 1
