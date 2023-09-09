@@ -9,7 +9,6 @@ def eratosphenGrid():
 
     for i in range(2, N + 1):
         for j in range(i+1, N + 1):
-            print(arr , "    " , j-i + (i - 2) * N ,  " -я итерация")
             if arr[i-1] != 0 and arr[j-1] % arr[i-1] == 0:
                 arr[j-1] = 0
 
@@ -21,13 +20,6 @@ def eratosphenGrid():
 def fibonacci():
     fibNums = []
 
-    m = 0
-    k=0
-    while k <= 100:
-        k = k+1
-        m = 10 ** k
-
-    print(m)
     i = 0
     while i >=0:
 
@@ -35,7 +27,7 @@ def fibonacci():
             fibNums.append(1)
         else:
             fibNums.append(fibNums[i-1] + fibNums[i-2])
-        if fibNums[i] / m >= 1:
+        if fibNums[i] / 10 ** 100 >= 1:
             break
         i = i + 1
 
@@ -77,5 +69,23 @@ def vigenere(plaintext: str, key: str):
     return cipher
 
 
+def menu():
+    while 1:
+        ans = int(input("-------------Домашнее Задание 1-------------\n*введите номер задания:\n\n1-Решето Эратосфена\n2-Вывод чисел Фибоначчи\n3-Шифр Цезаря\n4-Шифр Виженера\n\n*********Для выхода введите 0********\n\n"))
+        match ans:
+            case 1:
+                eratosphenGrid()
+            case 2:
+                fibonacci()
+            case 3:
+                plaintext = input("\nВведите строку, которую нужно зашифровать: ")
+                shift = input("\nВведите величину сдвига: ")
+                ceasar(plaintext, shift)
+            case 4:
+                plaintext = input("\nВведите строку, которую нужно зашифровать: ")
+                key = input("\nВведите ключ ")
+                vigenere(plaintext, key)
+            case 0:
+                break
 
- 
+menu()
