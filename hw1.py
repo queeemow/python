@@ -79,7 +79,7 @@ def menu():
                 fibonacci()
             case 3:
                 plaintext = input("\nВведите строку, которую нужно зашифровать: ")
-                shift = input("\nВведите величину сдвига: ")
+                shift = int(input("\nВведите величину сдвига: "))
                 ceasar(plaintext, shift)
             case 4:
                 plaintext = input("\nВведите строку, которую нужно зашифровать: ")
