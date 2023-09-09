@@ -46,7 +46,7 @@ def ceasar(plaintext: str, shift: int):
         if ord(plaintext[i].upper()) + shift <= 95:
             cipher.append(chr(ord(plaintext[i]) + shift))
         else:
-             cipher.append(chr(ord(plaintext[i]) - 26 + shift))
+             cipher.append(chr(ord(plaintext[i].upper()) - 26 + shift))
         i = i + 1
     return str(cipher)
 
@@ -59,9 +59,9 @@ def vigenere(plaintext: str, key: str):
     while i < len(plaintext):
         if i % len(key) == 0:
             j = 0
-            cipher.append(chr(ord(plaintext[i]) + ord(key[j]) - ord("A")))
+            cipher.append(chr(ord(plaintext[i].upper()) + ord(key[j].upper()) - ord("A")))
         else:
-            cipher.append(chr(ord(plaintext[i]) + ord(key[j]) - ord("A")))
+            cipher.append(chr(ord(plaintext[i].upper()) + ord(key[j].upper()) - ord("A")))
         if ord(cipher[i]) > 95: #проверка на вхождение в алфавит
             cipher[i] = chr(ord(cipher[i]) - 26)
         i = i + 1
@@ -80,11 +80,11 @@ def menu():
             case 3:
                 plaintext = input("\nВведите строку, которую нужно зашифровать: ")
                 shift = int(input("\nВведите величину сдвига: "))
-                ceasar(plaintext, shift)
+                print(ceasar(plaintext, shift))
             case 4:
                 plaintext = input("\nВведите строку, которую нужно зашифровать: ")
                 key = input("\nВведите ключ ")
-                vigenere(plaintext, key)
+                print(vigenere(plaintext, key))
             case 0:
                 break
 
