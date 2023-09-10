@@ -15,7 +15,6 @@ def eratosphenGrid(N:int):
 
     primes = [a for a in arr if a!=0]
 
-    print(primes)
     #подспорье для РСА шифрования
     return(primes)
 
@@ -102,28 +101,28 @@ def rsa(pubKey, plaintext: str):
     cipher = []
     i = 0
     while i < len(plaintext): #шифрование
-        cipher.append(ord(plaintext[i])**pubKey[0] % pubKey[1])
+        cipher.append(chr(ord(plaintext[i])**pubKey[0] % pubKey[1]))
         i = i + 1
     return cipher
 
 
 #Реализация дешифрования РСА
-def decrytRsa(privkey, cipher: int):
+def decryptRsa(privkey, cipher):
     plaintext = []
     i = 0
     while i < len(cipher): #шифрование
-        plaintext.append(chr(cipher[i])**privkey[0] % privkey[1])
+        plaintext.append(chr(ord(cipher[i])**privkey[0] % privkey[1]))
         i = i + 1
     return plaintext
 
 
 def menu():
     while 1:
-        ans = int(input("-------------Домашнее Задание 1-------------\n*введите номер задания:\n\n1-Решето Эратосфена\n2-Вывод чисел Фибоначчи\n3-Шифр Цезаря\n4-Шифр Виженера\nRSA-шифрование\n*********Для выхода введите 0********\n\n"))
+        ans = int(input("-------------Домашнее Задание 1-------------\n*введите номер задания:\n\n1-Решето Эратосфена\n2-Вывод чисел Фибоначчи\n3-Шифр Цезаря\n4-Шифр Виженера\n5-RSA-шифрование\n6-Дешифрование РСА\n\n*********Для выхода введите 0********\n\n"))
         match ans:
             case 1:
                 N = int(input("Input a number\n"))
-                eratosphenGrid(N)
+                print(eratosphenGrid(N))
             case 2:
                 fibonacci()
             case 3:
@@ -137,9 +136,16 @@ def menu():
             case 5:
                 firstPar = int(input("Введите первый параметр( простое число/ желательно большое для лучшей защиты/ для выбора можете использовать функцию (1) - Решето Эратосфена):\n"))
                 secondPar = int(input("Введите второй параметр( простое число/ желательно большое для лучшей защиты/ для выбора можете использовать функцию (1) - Решето Эратосфена):\n"))
-                print("Ваши ключи приватный и публичный соответственно: ", keyGen(firstPar, secondPar)[0] , keyGen(firstPar, secondPar)[1])
+                print("Ваши ключи публичный и приватный соответственно: ", keyGen(firstPar, secondPar)[0] , keyGen(firstPar, secondPar)[1])
                 plaintext = input("Введите сообщение, которое нужно зашифровать:\n")
+                cipher = rsa(keyGen(firstPar, secondPar)[0], plaintext)
+                print("Зашифрованное сообщение: ", cipher)
+            case 6:
+                d = int(input("Введите первое значение приватного ключа: "))
+                n = int(input("Введите второе значение приватного ключа: "))
+            #    cipher = input("Введите зашифрованное сообщение")
+                plaintext = decryptRsa([d,n], cipher)
+                print("Расшифрованное сообщение: ", plaintext)
             case 0:
                 break
-
 menu()
