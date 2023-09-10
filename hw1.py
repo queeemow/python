@@ -96,26 +96,20 @@ def keyGen(firstPar: int, secondPar: int):
 #Реализация РСА шифрования
 def rsa(pubKey, plaintext: str):
     cipher = []
-    chrs = []
     i = 0
     while i < len(plaintext): #шифрование
-        chrs.append(ord(plaintext[i]))
-        cipher.append(ord(plaintext[i])**pubKey[0] % pubKey[1])
+        cipher.append((ord(plaintext[i])**pubKey[0]) % pubKey[1])
         i = i + 1
-    print(" CHARS = ", chrs)
     return cipher
 
 
 #Реализация дешифрования РСА
 def decryptRsa(privkey, cipher):
-    chrs = []
     plaintext = []
     i = 0
-    while i < len(cipher): #шифрование
-        chrs.append(cipher[i]**privkey[0] % privkey[1])
-        plaintext.append(chr(cipher[i]**privkey[0] % privkey[1]))
+    while i < len(cipher): #дешифрование
+        plaintext.append(chr((cipher[i]**privkey[0]) % privkey[1]))
         i = i + 1
-    print("NLYAT - ", chrs)
     return plaintext
 
 
