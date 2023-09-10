@@ -143,7 +143,7 @@ def menu():
             case 6:
                 d = int(input("Введите первое значение приватного ключа: "))
                 n = int(input("Введите второе значение приватного ключа: "))
-            #    cipher = input("Введите зашифрованное сообщение")
+                cipher = input("Введите зашифрованное сообщение")
                 plaintext = decryptRsa([d,n], cipher)
                 print("Расшифрованное сообщение: ", plaintext)
             case 0:
