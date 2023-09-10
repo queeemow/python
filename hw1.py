@@ -6,7 +6,6 @@ def eratosphenGrid(N:int):
     arr = [i for i in range(1,N+1)]
 
     arr[0] = 0
-    print(len(arr))
 
     for i in range(2, N + 1):
         for j in range(i+1, N + 1):
@@ -83,7 +82,6 @@ def keyGen(firstPar: int, secondPar: int):
     eulerVal = (firstPar - 1) * (secondPar - 1)
     randIndex = random.randint(0, len(eratosphenGrid(eulerVal)) - 1)
     e = eratosphenGrid(eulerVal)[randIndex]
-
     gcd = extgcd(eulerVal, e)
     if gcd[1] > gcd[2]: #берем меньший из полученных расширенным алгоритмом Евклида коэффициент
         x = gcd[2]
@@ -95,24 +93,29 @@ def keyGen(firstPar: int, secondPar: int):
     privKey = [d, n]
     return [pubKey, privKey]
 
-
 #Реализация РСА шифрования
 def rsa(pubKey, plaintext: str):
     cipher = []
+    chrs = []
     i = 0
     while i < len(plaintext): #шифрование
-        cipher.append(chr(ord(plaintext[i])**pubKey[0] % pubKey[1]))
+        chrs.append(ord(plaintext[i]))
+        cipher.append(ord(plaintext[i])**pubKey[0] % pubKey[1])
         i = i + 1
+    print(" CHARS = ", chrs)
     return cipher
 
 
 #Реализация дешифрования РСА
 def decryptRsa(privkey, cipher):
+    chrs = []
     plaintext = []
     i = 0
     while i < len(cipher): #шифрование
-        plaintext.append(chr(ord(cipher[i])**privkey[0] % privkey[1]))
+        chrs.append(cipher[i]**privkey[0] % privkey[1])
+        plaintext.append(chr(cipher[i]**privkey[0] % privkey[1]))
         i = i + 1
+    print("NLYAT - ", chrs)
     return plaintext
 
 
@@ -135,17 +138,18 @@ def menu():
                 print(vigenere(plaintext, key))
             case 5:
                 firstPar = int(input("Введите первый параметр( простое число/ желательно большое для лучшей защиты/ для выбора можете использовать функцию (1) - Решето Эратосфена):\n"))
-                secondPar = int(input("Введите второй параметр( простое число/ желательно большое для лучшей защиты/ для выбора можете использовать функцию (1) - Решето Эратосфена):\n"))
-                print("Ваши ключи публичный и приватный соответственно: ", keyGen(firstPar, secondPar)[0] , keyGen(firstPar, secondPar)[1])
+                secondPar = int(input("Введите второй параметр( простое число/ желательно большое для лучшей защиты/ для выбра можете использовать функцию (1) - Решето Эратосфена):\n"))
+                keys = keyGen(firstPar, secondPar)
+                print("Ваши ключи публичный и приватный соответственно: ",keys[0] ,keys[1] )
                 plaintext = input("Введите сообщение, которое нужно зашифровать:\n")
-                cipher = rsa(keyGen(firstPar, secondPar)[0], plaintext)
-                print("Зашифрованное сообщение: ", cipher)
+                cipher = rsa(keys[0], plaintext)
+                print("_______________Зашифрованное сообщение:    ", cipher, "     _________________________")
             case 6:
                 d = int(input("Введите первое значение приватного ключа: "))
                 n = int(input("Введите второе значение приватного ключа: "))
-                cipher = input("Введите зашифрованное сообщение")
+               # cipher = input("Введите зашифрованное сообщение")
                 plaintext = decryptRsa([d,n], cipher)
-                print("Расшифрованное сообщение: ", plaintext)
+                print("_______________Расшифрованное сообщение:   ", plaintext, "________________________")
             case 0:
                 break
 menu()
