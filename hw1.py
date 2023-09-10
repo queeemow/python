@@ -1,6 +1,7 @@
+import random
+
 #Решето Эратосфена
-def eratosphenGrid():
-    N = int(input("Input a number\n"))
+def eratosphenGrid(N:int):
 
     arr = [i for i in range(1,N+1)]
 
@@ -15,6 +16,8 @@ def eratosphenGrid():
     primes = [a for a in arr if a!=0]
 
     print(primes)
+    #подспорье для РСА шифрования
+    return(primes)
 
 #Числа Фибоначчи
 def fibonacci():
@@ -68,13 +71,59 @@ def vigenere(plaintext: str, key: str):
         j = j + 1
     return cipher
 
+def extgcd(num1, num2): #расширенный алгоритм Евклида
+    if num1 == 0:
+        return (num2, 0, 1)
+    else:
+        div, x, y = extgcd(num2 % num1, num1)
+    return (div, y - (num2 // num1) * x, x)
+
+#Генерация ключей
+def keyGen(firstPar: int, secondPar: int):
+    n = firstPar * secondPar
+    eulerVal = (firstPar - 1) * (secondPar - 1)
+    randIndex = random.randint(0, len(eratosphenGrid(eulerVal)) - 1)
+    e = eratosphenGrid(eulerVal)[randIndex]
+
+    gcd = extgcd(eulerVal, e)
+    if gcd[1] > gcd[2]: #берем меньший из полученных расширенным алгоритмом Евклида коэффициент
+        x = gcd[2]
+    else:
+        x = gcd[1]
+    d = eulerVal - abs(x)
+
+    pubKey = [e, n]
+    privKey = [d, n]
+    return [pubKey, privKey]
+
+
+#Реализация РСА шифрования
+def rsa(pubKey, plaintext: str):
+    cipher = []
+    i = 0
+    while i < len(plaintext): #шифрование
+        cipher.append(ord(plaintext[i])**pubKey[0] % pubKey[1])
+        i = i + 1
+    return cipher
+
+
+#Реализация дешифрования РСА
+def decrytRsa(privkey, cipher: int):
+    plaintext = []
+    i = 0
+    while i < len(cipher): #шифрование
+        plaintext.append(chr(cipher[i])**privkey[0] % privkey[1])
+        i = i + 1
+    return plaintext
+
 
 def menu():
     while 1:
-        ans = int(input("-------------Домашнее Задание 1-------------\n*введите номер задания:\n\n1-Решето Эратосфена\n2-Вывод чисел Фибоначчи\n3-Шифр Цезаря\n4-Шифр Виженера\n\n*********Для выхода введите 0********\n\n"))
+        ans = int(input("-------------Домашнее Задание 1-------------\n*введите номер задания:\n\n1-Решето Эратосфена\n2-Вывод чисел Фибоначчи\n3-Шифр Цезаря\n4-Шифр Виженера\nRSA-шифрование\n*********Для выхода введите 0********\n\n"))
         match ans:
             case 1:
-                eratosphenGrid()
+                N = int(input("Input a number\n"))
+                eratosphenGrid(N)
             case 2:
                 fibonacci()
             case 3:
@@ -85,6 +134,11 @@ def menu():
                 plaintext = input("\nВведите строку, которую нужно зашифровать: ")
                 key = input("\nВведите ключ ")
                 print(vigenere(plaintext, key))
+            case 5:
+                firstPar = int(input("Введите первый параметр( простое число/ желательно большое для лучшей защиты/ для выбора можете использовать функцию (1) - Решето Эратосфена):\n"))
+                secondPar = int(input("Введите второй параметр( простое число/ желательно большое для лучшей защиты/ для выбора можете использовать функцию (1) - Решето Эратосфена):\n"))
+                print("Ваши ключи приватный и публичный соответственно: ", keyGen(firstPar, secondPar)[0] , keyGen(firstPar, secondPar)[1])
+                plaintext = input("Введите сообщение, которое нужно зашифровать:\n")
             case 0:
                 break
 
