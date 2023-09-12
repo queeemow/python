@@ -69,26 +69,28 @@ def vigenere(plaintext: str, key: str):
         j = j + 1
     return cipher
 
-def extgcd(num1, num2): #расширенный алгоритм Евклида
-    if num1 == 0:
-        return (num2, 0, 1)
-    else:
-        div, x, y = extgcd(num2 % num1, num1)
-    return (div, y - (num2 // num1) * x, x)
+def dsearch(eulerVal, e): # алгоритм Евклида
+    k = 1
+    d = 1.1
+    while not (int(d) == d):
+        d = (k * eulerVal + 1)/e
+        k = k + 1
+    return int(d)
+
 
 #Генерация ключей
 def keyGen(firstPar: int, secondPar: int):
     n = firstPar * secondPar
     eulerVal = (firstPar - 1) * (secondPar - 1)
-    randIndex = random.randint(0, len(eratosphenGrid(eulerVal)) - 1)
-    e = eratosphenGrid(eulerVal)[randIndex]
-    gcd = extgcd(eulerVal, e)
-    if gcd[1] > gcd[2]: #берем меньший из полученных расширенным алгоритмом Евклида коэффициент
-        x = gcd[2]
-    else:
-        x = gcd[1]
-    d = eulerVal - abs(x)
+    while 1:
+        randIndex = random.randint(1, len(eratosphenGrid(eulerVal)) - 2)
+        e = eratosphenGrid(eulerVal)[randIndex]
+        if(eulerVal % e == 0 and e != 1): #e и eulerval взаимнопростые
+            continue
+        else:
+            break
 
+    d = dsearch(eulerVal, e)
     pubKey = [e, n]
     privKey = [d, n]
     return [pubKey, privKey]
@@ -98,7 +100,7 @@ def rsa(pubKey, plaintext: str):
     cipher = []
     i = 0
     while i < len(plaintext): #шифрование
-        cipher.append((ord(plaintext[i])**pubKey[0]) % pubKey[1])
+        cipher.append(ord(plaintext[i])**pubKey[0] % pubKey[1])
         i = i + 1
     return cipher
 
@@ -108,7 +110,7 @@ def decryptRsa(privkey, cipher):
     plaintext = []
     i = 0
     while i < len(cipher): #дешифрование
-        plaintext.append(chr((cipher[i]**privkey[0]) % privkey[1]))
+        plaintext.append(chr(cipher[i]**privkey[0] % privkey[1]))
         i = i + 1
     return plaintext
 
@@ -141,7 +143,19 @@ def menu():
             case 6:
                 d = int(input("Введите первое значение приватного ключа: "))
                 n = int(input("Введите второе значение приватного ключа: "))
-               # cipher = input("Введите зашифрованное сообщение")
+                cipher = []
+                i = 0
+
+                print("Введите зашифрованное сообщение: \n*вводите по одному значению / после ввода каждого значения нажимайте ENTER / для завершения ввода сообщения введите 0")
+                while 1:
+                    i = i+1
+                    print("Введите ", i ,"-е значение:     ")
+                    a = int(input())
+                    if a == 0:
+                        break
+                    else:
+                        cipher.append(a)
+
                 plaintext = decryptRsa([d,n], cipher)
                 print("_______________Расшифрованное сообщение:   ", plaintext, "________________________")
             case 0:
