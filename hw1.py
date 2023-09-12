@@ -119,7 +119,8 @@ def menu():
                 N = int(input("Input a number\n"))
                 print(eratosphenGrid(N))
             case 2:
-                fibonacci()
+                N = int(input("Введите порядковый номер числа Фибоначчи, которое хотели бы найти: "))
+                fibonacci(1,1,N,1,12323)
             case 3:
                 plaintext = input("\nВведите строку, которую нужно зашифровать: ")
                 shift = int(input("\nВведите величину сдвига: "))
@@ -156,3 +157,4 @@ def menu():
                 print("_______________Расшифрованное сообщение:   ", plaintext, "________________________")
             case 0:
                 break
+menu()
