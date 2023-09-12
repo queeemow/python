@@ -18,26 +18,22 @@ def eratosphenGrid(N:int):
     return(primes)
 
 #Числа Фибоначчи
-def fibonacci():
-    fibNums = []
 
-    i = 0
-    while i >=0:
+def fibonacci(fib1, fib2, N, i, seeked):
+    if(i == 1):
+        print(fib1, "  ")
+        print(fib2, "  ")
+    i = i + 1
+    fib3 = fib1 + fib2
+    print(fib3, "  ")
+    if N == i:
+        seeked = fib3
+    elif fib3 / (10**100) >= 1:
+        print("Ваше искомое число Фибоначчи = ", seeked)
+        return
+    fibonacci(fib2, fib3, N, i,seeked)
 
-        if i < 2:
-            fibNums.append(1)
-        else:
-            fibNums.append(fibNums[i-1] + fibNums[i-2])
-        if fibNums[i] / 10 ** 100 >= 1:
-            break
-        i = i + 1
-
-    print(fibNums)
-
-    num = int(input("\n\n\n\nВведите порядковый номер:\n"))
-
-    print("искомое число Фибоначчи под порядковым номером ", num, " равно:" , fibNums[num -1])
-
+fibonacci(1,1,123,1,123)
 #Шифр Цезаря
 def ceasar(plaintext: str, shift: int):
     cipher = []
@@ -160,4 +156,3 @@ def menu():
                 print("_______________Расшифрованное сообщение:   ", plaintext, "________________________")
             case 0:
                 break
-menu()
