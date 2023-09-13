@@ -28,12 +28,14 @@ def fibonacci(fib1, fib2, N, i, seeked):
     print(fib3, "  ")
     if N == i:
         seeked = fib3
-    elif fib3 / (10**100) >= 1:
+    elif fib3 / (10**100) >= 1 and seeked != 140502:
         print("Ваше искомое число Фибоначчи = ", seeked)
         return
+    elif fib3 / (10**100) >= 1 and seeked == 140502:
+        print(N, " Не является корректным порядковым номером. Пожалуйста, повторите ввод\n")
+        return
     fibonacci(fib2, fib3, N, i,seeked)
-
-fibonacci(1,1,123,1,123)
+    
 #Шифр Цезаря
 def ceasar(plaintext: str, shift: int):
     cipher = []
@@ -120,7 +122,7 @@ def menu():
                 print(eratosphenGrid(N))
             case 2:
                 N = int(input("Введите порядковый номер числа Фибоначчи, которое хотели бы найти: "))
-                fibonacci(1,1,N,1,12323)
+                fibonacci(1,1,N,1,140502)
             case 3:
                 plaintext = input("\nВведите строку, которую нужно зашифровать: ")
                 shift = int(input("\nВведите величину сдвига: "))
@@ -157,4 +159,5 @@ def menu():
                 print("_______________Расшифрованное сообщение:   ", plaintext, "________________________")
             case 0:
                 break
-menu()
+if __name__ == "__main__":
+    menu()
