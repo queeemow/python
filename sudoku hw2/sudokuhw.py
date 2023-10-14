@@ -1,20 +1,6 @@
 import random
 import pathlib
 
-def create_grid(puzzle: str):
-    digits = [c for c in puzzle if c in "123456789."]
-    grid = group(digits, 9)
-    return grid
-
-def group(values: list, n: int):
-    lis1 = []
-
-    for i in range(0, n):
-            lis1.append([])
-            for j in range(0,n):
-                 lis1[i].append(values[i*n + j])
-    return lis1
-
 grid = ("""53..7....
 6..195...
 .98....6.
@@ -25,18 +11,31 @@ grid = ("""53..7....
 ...419..5
 ....8..79""")
 
-truGrid = create_grid(grid)
+def group(values: list, n: int):
+    lis1 = []
+
+    for i in range(0, n):
+        lis1.append([])
+        for j in range(0,n):
+            lis1[i].append(values[i*n + j])
+    return lis1
+
+
+def create_grid(puzzle: str):
+    digits = [c for c in puzzle if c in "123456789."]
+    grid = group(digits, 9)
+    return grid
 
 def display(lis: list):
-     print("\n\n\n")
-     for i in range(0, len(lis)):
-        for j in range(0, len(lis[i])):
+    print("\n\n\n")
+    for i in range(len(lis)):
+        for j in range(len(lis[i])):
             print(lis[i][j], end = "   ")
             if (j + 1) % 3 == 0 and j % 8 != 0:
-             print("|", end = "   ")
-        print("\n")
-        if(i + 1) % 3 == 0 and i != len(lis)-1:
-            print("-----------------------------------------")
+                print("|", end = "   ")
+    print("\n")
+    if(i + 1) % 3 == 0 and i != len(lis)-1:
+        print("-----------------------------------------")
 
 
 def getcol(puzzle: list, pos:tuple):
@@ -128,8 +127,22 @@ def find_possible_values(grid: list, pos: tuple):
     return (vals - col) & (vals - row) & (vals - block)
 
 
-def solve(grid: list):
+
+
+def solve(grid1: list):
+    pos = find_empty_position(grid1)
+    print(pos)
+    if not pos:
+        return grid1
+    vals = find_possible_values(grid1, pos)
+    print(vals)
+    for val in vals:
+        grid1[pos[0]][pos[1]] = val
+        solve(grid1)
+    display(grid1)
+
     pass
+print(solve(create_grid(grid)))
 
 def check_solution(grid: list):
     a = set(str(i) for i in range(1,10))
@@ -145,7 +158,7 @@ def generate_grid(n: int):
     used = [(random.randint(0, 8), random.randint(0,8))]
     p = 0
     f = n
-    while p <= n:
+    while p < n:
         pos1 = (random.randint(0, 8), random.randint(0,8))
         if used[p] != (pos1):
             used.append(pos1)
@@ -169,4 +182,3 @@ def read_sudoku(path: str):
         puzzle = f.read()
     return create_grid(puzzle)
 
-display(read_sudoku("puzzle3.txt"))
