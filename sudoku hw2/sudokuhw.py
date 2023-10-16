@@ -59,64 +59,8 @@ def getrow(puzzle: list, pos:tuple): # получить все значения 
 
 
 def getblock(puzzle: list, pos:tuple): #ужас # получить все значения из блока указанной позиции
-    lis = []
-    if pos[0] < 3:
-        if pos[1] < 3:
-            for i in range(0,3):
-                for j in range(0,3):
-                    if  puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
-        if 6 > pos[1] >= 3:
-            for i in range(0,3):
-                for j in range(3,6):
-                    if  puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
-        if pos[1] >= 6:
-            for i in range(0,3):
-                for j in range(6,9):
-                    if  puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
-    if 6 > pos[0] >= 3:
-        if pos[1] < 3:
-            for i in range(3,6):
-                for j in range(0,3):
-                    if  puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
-        if 6 > pos[1] >= 3:
-            for i in range(3,6):
-                for j in range(3,6):
-                    if  puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
-        if pos[1] >= 6:
-            for i in range(3,6):
-                for j in range(6,9):
-                    if  puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
-    if pos[0] >= 6:
-        if pos[1] < 3:
-            for i in range(6,9):
-                for j in range(0,3):
-                    if puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
-        if 6 > pos[1] >= 3:
-            for i in range(6,9):
-                for j in range(3,6):
-                    if  puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
-        if pos[1] >= 6:
-            for i in range(6,9):
-                for j in range(6,9):
-                    if  puzzle[i][j] != '.':
-                        lis.append(puzzle[i][j])
-            return lis
+    
+    pass
 
 def find_empty_position(grid: list): #найти первую по порядку свободную позицию в матрице
     for i in range(len(grid)):
@@ -179,8 +123,8 @@ def read_sudoku(path: str): # прочитать матрицу из указа�
     return create_grid(puzzle)
 
 def menu():
-    ext = 1
-    while(ext):
+
+    while(1):
         print("\n\n\n\n--------Домашнее задание 2: Судоку----------\n\n\n\n")
         print("1 - Прочитать матрицу из файла в данной директории \n2 - Отобразить матрицу \n3 - Решить судоку(не работает)")
         ans = input("\n\n*******ДЛЯ ВЫХОДА ВВЕДИТЕ 0*******\n")
@@ -196,11 +140,9 @@ def menu():
             case '3': 
                 solve(matrix)
             case '0':
-                ext = 0
                 break
             case _:
                 print("\nВведите корректный ответ")
 
 if __name__ == "__main__":
     menu()
-    pass
