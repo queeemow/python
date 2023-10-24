@@ -52,26 +52,23 @@ class GameOfLife:
                         self.live = True #Начать отрисовывать следующие состояния через функцию get_next_generation
                         pygame.display.set_caption(f'Game of Life: -- Для выхода нажмите Q --')
                     if event.key == pygame.K_q:
-                        running = False
+                        running = 0
             self.draw_lines()
             self.draw_grid()
             if self.live:
                 prevgrid = self.grid
                 if self.grid == self.get_next_generation():
                     print("GAME HAS ENDED ON THE GENERATION: ", self.gen)
-                    running = 0
                     self.live = 0
                 self.gen = self.gen + 1
                 pygame.display.set_caption(f'Game of Life: поколение {self.gen} -- Для выхода нажмите Q --')
                 self.grid = self.get_next_generation()
                 if prevgrid == self.get_next_generation():
                     print("GAME HAS ENDED ON THE GENERATION: ", self.gen)
-                    running = 0
                     self.live = 0
             pygame.display.flip()
             clock.tick(self.speed)
-        pygame.quit()
-    
+
     def add_cell(self ,pos: tuple): #Оживить ячейку
         self.grid[pos[1] // self.cell_size][pos[0] // self.cell_size] = 1
 
@@ -123,9 +120,57 @@ class GameOfLife:
                     nextgrid[y].append(0)
         return nextgrid
 
-if __name__ == '__main__':
-    game = GameOfLife(1080, 960, 40, 150, 0) #Ширина Высота Рзамер ячейки ФПС Рандомная начальная позиция
-    game.run()
-    game.print_matrix()
 
-    
+def menu():
+    while(1):
+        ans = input("""1 - Задать размер экрана: 
+2 - Задать размер клетки:
+3 - Задать скорость:
+4 - Случайная генерация начальных клеток:
+5 - Использовать рекомендованные настройки: 
+************ДЛЯ ЗАВЕРШЕНИЯ ВВОДА ВВЕДИТЕ 0**************\n""")
+        match ans:
+            case '1':
+                try:
+                    width = int(input("\nВведите ширину экрана: "))
+                    height = int(input("\nВведите высоту экрана: "))
+                    print("-----DONE-----")
+                except:
+                    print("******ЧТО-ТО ПОШЛО НЕ ТАК. ПОВТОРИТЕ ВВОД ВХОДНЫХ ДАННЫХ********")
+            case '2':
+                try:
+                    cell_size = int(input("\nВведите размер клетки: "))
+                    print("-----DONE-----")
+                except:
+                    print("******ЧТО-ТО ПОШЛО НЕ ТАК. ПОВТОРИТЕ ВВОД ВХОДНЫХ ДАННЫХ********")
+            case '3':
+                try:
+                    speed = int(input("\nВведите желаемую скорость генерации новых поколений: "))
+                    print("-----DONE-----")
+                except:
+                    print("******ЧТО-ТО ПОШЛО НЕ ТАК. ПОВТОРИТЕ ВВОД ВХОДНЫХ ДАННЫХ********")
+            case '4':
+                try:
+                    randomize = int(input("\n0 - Выключить случайню генерацию начального состояния клеток\n1 - Включить случайную генерацию начального состояния клеток: "))
+                    print("-----DONE-----")
+                except:
+                    print("******ЧТО-ТО ПОШЛО НЕ ТАК. ПОВТОРИТЕ ВВОД ВХОДНЫХ ДАННЫХ********")
+            case '5':
+                width = 1080
+                height = 940
+                cell_size = 40
+                speed = 140
+                randomize = 1
+                print("-----DONE-----")
+            case '0':
+                break
+            case _:
+                print("\n*******Что-то пошло не так. Повторите ввод номера параметра******")
+    try:
+        return (width, height, cell_size, speed, randomize)
+    except:
+        print("******ЧТО-ТО ПОШЛО НЕ ТАК. ПОВТОРИТЕ ВВОД ВХОДНЫХ ДАННЫХ********")
+if __name__ == '__main__':
+    ans = menu()
+    game = GameOfLife(ans[0], ans[1], ans[2], ans[3], ans[4]) #Ширина Высота Рзамер ячейки ФПС Рандомная начальная позиция
+    game.run()
