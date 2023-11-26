@@ -1,0 +1,18 @@
+curl "https://onlyfans.com/api2/v2/init" ^
+  -H "authority: onlyfans.com" ^
+  -H "accept: application/json, text/plain, */*" ^
+  -H "accept-language: en-US,en;q=0.9" ^
+  -H "app-token: 33d57ade8c02dbs5a333db99ff9ae26a" ^
+  -H "cookie: csrf=35JtP1qT96e74eb561dbv5a7cb4316ab9cf4e459; sess=hcb0k8pq50bfo8qhvamhqecbe5; auth_id=242818327; auth_uid_242818327=4QLR3QGUZRdxJqVyCansmszUEKx5fOMU; cookiesAccepted=all; googtrans=/en/ru; googtrans=/en/ru; cwr_u=437c7804-a28b-40de-91fe-23fc44a53258; cwr_s=eyJzZXNzaW9uSWQiOiI5N2YyMjA1NS00NTIxLTRjZjQtYjYxMi0zYTY1ZWE2OGRmMGIiLCJyZWNvcmQiOnRydWUsImV2ZW50Q291bnQiOjQ0LCJwYWdlIjp7InBhZ2VJZCI6Ii9teS9xdWV1ZS8yMDIzLTA3LTE2IiwicGFyZW50UGFnZUlkIjoiL3Bvc3RzL2NyZWF0ZSIsImludGVyYWN0aW9uIjoyMCwicmVmZXJyZXIiOiIiLCJyZWZlcnJlckRvbWFpbiI6IiIsInN0YXJ0IjoxNjg5MjczNDk3MTc0fX0=; lang=en; __stripe_mid=4c8f25f6-e708-4950-9c0c-deb6e8d112e21e73e1; __stripe_sid=f3800388-f658-4d35-bd74-e742c5f9ec5e62110e; fp=d5190b20626295985280af23e91f30d6386dba43; st=3be106d354c2386947ef8d04ee4f5cad21816feb21dd02c4cba3092bf69457a3; ref_src=" ^
+  -H "referer: https://onlyfans.com/my/notifications" ^
+  -H "sec-ch-ua: ^\^"Google Chrome^\^";v=^\^"111^\^", ^\^"Not(A:Brand^\^";v=^\^"8^\^", ^\^"Chromium^\^";v=^\^"111^\^"" ^
+  -H "sec-ch-ua-mobile: ?0" ^
+  -H "sec-ch-ua-platform: ^\^"Windows^\^"" ^
+  -H "sec-fetch-dest: empty" ^
+  -H "sec-fetch-mode: cors" ^
+  -H "sec-fetch-site: same-origin" ^
+  -H "sign: 13867:8f2bc3d6f1837482ee3cbe6b0a5802a7ae3680cf:a52:6544f3c1" ^
+  -H "time: 1699263334594" ^
+  -H "user-agent: Mozilla/5.0 (Windows NT 6.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.0.0 Safari/537.36" ^
+  -H "x-bc: d5190b20626295985280ad23e91f30d6386dba43" ^
+  --compressed
