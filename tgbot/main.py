@@ -46,7 +46,6 @@ def downloadYT(message): #Скачать видос
             bot.send_message(message.from_user.id, f'The video weights more than 50MB, which is maximum allowed document size limit. The video will be compressed')
             bot.send_message(message.from_user.id, "Downloading, Please stand by...")
             yt.download()
-            bot.send_message(message.from_user.id, "Downloading complete, would you like to compress video to lower quality or split it into parts without quality losses?")
             bot.send_message(message.from_user.id, "Downloading complete, compressing...")
             yt.compress_video()
             sendYT(message, True)
